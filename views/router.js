@@ -1,17 +1,15 @@
-import express from "express"; // we need the express package because that provides the router object
+import express from "express";
+import accountsController from "../controllers/accountsController.js";
 
-const Router = express.Router(); // create a new router object
+const Router = express.Router();
 
-Router.route("/accounts") // define an endpoint for "/accounts" 
-  .get((req, res) => { // tell it what to do when a user sends a GET request to /accounts
-    res.send(
-      "🤖 Accounts Route with GET method - this endpoint will get all of the accounts from the database"
-    );
-  })
-  .post((req, res) => { // tell it what to do when a user sends a POST request to /accounts
-    res.send(
-      "🤖 Accounts Route with POST method - this endpoint will create a new account in the database"
-    );
-  });
+Router.route("/accounts") // this creates an endpoint for /accounts
+    .get(accountsController.getAllAccounts) // if the user sends a GET request to /accounts, use this function
+    .post(accountsController.createAccount); // if the user sends a POST request to /accounts, use this function
+
+Router.route("/accounts/:id") // the :id here represents a dynamic parameter, so endpoint could be /accounts/1 or /2, /3 etc
+    .get(accountsController.getAccountById) // if the user sends a GET request to /accounts:id, use this function
+    .put(accountsController.updateAccountById) // if the user sends a PUT request to /accounts:id, use this function
+    .delete(accountsController.deleteAccountById); // if the user sends a DELETE request to /accounts:id, use this function
 
 export default Router;
