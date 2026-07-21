@@ -7,6 +7,7 @@ const app = express(); // create a new express application
 
 app.use(express.json()); // this configures express to read request body when a user sends data
 
+
 async function startServer() { // async functions can wait for things to happen (await)
   try { // try to start the server using app.listen
     app.listen(port, () => console.log(`🤖 Listening on Port: ${port}`));
